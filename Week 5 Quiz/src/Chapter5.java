@@ -8,6 +8,7 @@ public class Chapter5 {
 	
 	public static void main (String[] args) {
 		
+		int a = 42;
 
 		System.out.println(isPerfectNumber(6));
 		System.out.println(isPerfectNumber(28));
@@ -16,6 +17,8 @@ public class Chapter5 {
 		
 		System.out.println(random4DigitNum());
 		System.out.println(random4DigitNumber());
+		
+		System.out.println(Math.floor(12.345));
 		
 	}
 	

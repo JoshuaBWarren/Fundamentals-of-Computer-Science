@@ -1,19 +1,27 @@
+import java.awt.Font;
+import java.awt.Graphics;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /*
- * Joshua Warren, due Febuary 1, CS-210
- * Programming Assignment 1
- * Should be fun.
+ * Joshua Warren, due Febuary 16, CS-210
+ * Programming Assignment 2
+ * Should also be fun.
  */
 
 public class DayGrid {
 
 	public static void main (String[] args) {
+		
+		DrawingPanel panel = new DrawingPanel(700, 700);
+		Graphics g = panel.getGraphics();
+		
+		g.setFont(new Font("Monospaced", Font.PLAIN, 15));
+		g.drawString(" Sun  Mon  Tues  Wed  Thurs  Fri  Sat", 40, 40);
+	
 		int month = 11; //12 is the number for December
 		int year = 1986;
-		showGrid(month, year);
-	
+		showGrid(g, month, year);
 	}
 
 	// Assignment problem 1:
@@ -26,6 +34,58 @@ public class DayGrid {
 	 * int year is a year of the Gregorian calendar
 	 * 
 	 * method has to work for any month and any year (including leap years)
+	 */
+	public static void showGrid(Graphics g, int month, int year) {
+		
+		GregorianCalendar cal = new GregorianCalendar(year, month-1, 1);
+		
+		// Get the total number of days.
+		int totalDays = daysInMonth(month); 
+		// Get the first day that starts the month.
+		int firstDay = cal.get(Calendar.DAY_OF_WEEK); 
+
+		// Draw the calendar.
+		for(int i = 1; i <= 7; i++) {
+			for(int j = 1; j <= 6; j++) {
+			g.drawRect(35, 65, 50 * i, 50 * j);
+			}
+		}
+
+		// Loop through the days of the week and keep track with currentDay.
+		for(int i = 0, currentDay = 1;  currentDay <= totalDays; i++) {
+			
+			/*
+			 * Counters of day position in x and coordinates:
+			 * 
+			 * plotterX = x-coordinate
+			 * plotterY = y-coordinate
+			 */
+			int plotterX = 50;
+			int plotterY = 50;
+			
+			for (int j = helper01(i, firstDay); (currentDay <= totalDays); j++) {
+				
+				// Use built-in method to check for leap year.
+				// Add one day to the month (Feb) if leap year.
+				if(cal.isLeapYear(year)) {
+					totalDays = daysInMonth(month) + 1;
+				}
+						
+				// Skip to the next line if we're at the end of the week.
+				if(j % 7 == 0) {
+					plotterX = plotterX - 350;
+					plotterY = plotterY + 50;
+				}
+				g.setFont(new Font("Monospaced", Font.PLAIN, 25));
+				g.drawString(Integer.toString(currentDay), plotterX + 50 * j, plotterY + 50);
+				currentDay++;        
+		        
+		}
+	}
+}
+	
+	/*
+	 * Overloaded method from Programming Assignment #1.
 	 */
 	public static void showGrid(int month, int year) {
 
@@ -108,6 +168,8 @@ public class DayGrid {
 		System.out.println("+------+------+------+------+------+------+------+");
 	}
 	
+	
+	
 	// Assignment problem 2: 
 	
 	/*
@@ -159,6 +221,3 @@ public class DayGrid {
 
 
 }
-
-
-
