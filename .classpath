@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="Chapter 6 Quiz/src"/>
+	<classpathentry kind="src" path="GettingStarted.java/src"/>
+	<classpathentry kind="src" path="ProgrammingAssignment01/src"/>
+	<classpathentry kind="src" path="ProgrammingAssignment02/src"/>
+	<classpathentry kind="src" path="Week 1 Quiz/src"/>
+	<classpathentry kind="src" path="Week 1/src"/>
+	<classpathentry kind="src" path="Week 2 Quiz/src"/>
+	<classpathentry kind="src" path="Week 2/src"/>
+	<classpathentry kind="src" path="Week 3 Quiz/src"/>
+	<classpathentry kind="src" path="Week 3/src"/>
+	<classpathentry kind="src" path="Week 4 Quiz/src"/>
+	<classpathentry kind="src" path="Week 4/src"/>
+	<classpathentry kind="src" path="Week 5 Quiz/src"/>
+	<classpathentry kind="src" path="Week 5/src"/>
+	<classpathentry kind="src" path="Week 6/src"/>
+	<classpathentry kind="output" path="GettingStarted.java/bin"/>
+</classpath>

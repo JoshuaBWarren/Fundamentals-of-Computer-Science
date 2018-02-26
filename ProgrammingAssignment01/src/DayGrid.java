@@ -10,8 +10,8 @@ import java.util.GregorianCalendar;
 public class DayGrid {
 
 	public static void main (String[] args) {
-		int month = 11; //12 is the number for December
-		int year = 1986;
+		int month = 8; //12 is the number for December
+		int year = 1987;
 		showGrid(month, year);
 	
 	}
