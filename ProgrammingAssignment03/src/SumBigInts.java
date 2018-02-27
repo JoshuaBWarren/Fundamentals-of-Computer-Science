@@ -30,26 +30,12 @@ public class SumBigInts {
         int[] array1 = {1, 2, 3, 4, 3, 2, 1, 4, 5};
         int[] array2 = {9, 9, 6, 5, 4, 3, 2, 1};
         
-
+        int[] array3 = {9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9};
+        int[] array4 = {4, 3, 2, 4, 3, 2};
         
-        int[] arrayTest = new int[MAX_DIGITS];
-        int[] arrayTest1 = new int[MAX_DIGITS];
            
-        System.out.print(Arrays.toString(addInt(array1, array2)));
-     /*
-        for(int i = 0; i < arrayTest.length; i++) {
-        	System.out.print(arrayTest[i] + " ");
-        }
-        
-        
-        for(int i = 0; i < arrayTest1.length; i++) {
-        	arrayTest1[i] = addInt(array3, array4)[i];
-        }
-        
-        for(int i = 0; i < arrayTest1.length; i++) {
-        	System.out.print(arrayTest1[i] + " ");
-        }
-        */
+        System.out.print(Arrays.toString(addInt(array3, array4)));
+
         
         //System.out.print(Arrays.toString(convertArray(array1)));
         
