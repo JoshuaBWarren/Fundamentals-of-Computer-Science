@@ -34,17 +34,17 @@ public class SumBigInts {
         int[] array4 = {4, 3, 2, 4, 3, 2};
         
            
-<<<<<<< HEAD
+
         System.out.print(Arrays.toString(addInt(array3, array4)));
 
-=======
+
         System.out.println(Arrays.toString(addInt(array1, array2)));
 
         
         //System.out.print(Arrays.toString(convertArray(array1)));
         System.out.println(Arrays.toString(convertArray(stringToArray("12345"))));
         
->>>>>>> 4fde008838f49ed49115dbf0a866e75ae6243748
+
         
         
     } 
