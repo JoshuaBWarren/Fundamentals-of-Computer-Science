@@ -24,8 +24,8 @@ public class SumBigInts {
 
     public static void main(String[] args) throws FileNotFoundException {
     	
-        //Scanner input = new Scanner(new File("sum.txt"));
-        //processFile(input);
+        Scanner input = new Scanner(new File("src/Untitled 1"));
+        processFile(input);
         
         int[] array1 = {1, 2, 3, 4, 3, 2, 1, 4, 5};
         int[] array2 = {9, 9, 6, 5, 4, 3, 2, 1};
@@ -35,48 +35,49 @@ public class SumBigInts {
         
            
 
-        System.out.print(Arrays.toString(addInt(array3, array4)));
+        //System.out.println(Arrays.toString(addInt(array3, array4)));
 
 
-        System.out.println(Arrays.toString(addInt(array1, array2)));
+        //System.out.println(Arrays.toString(addInt(array1, array2)));
 
         
         //System.out.print(Arrays.toString(convertArray(array1)));
-        System.out.println(Arrays.toString(convertArray(stringToArray("12345"))));
+        //System.out.println(Arrays.toString(convertArray(stringToArray("12345"))));
+        //System.out.println(Arrays.toString(stringToArray("123456")));
         
 
-        
-        
     } 
 
 // more methods follow for i/o and add and .....
     
-    /*
-     * This method is the helper method that will convert
-     * every Integer array its given into an array that
-     * contains the same values but all the way on the right 
-     * side of it.  
-     * 
-     * It also places zero's in every space not occupied by 
-     * an Integer.
-     */
-    public static int[] convertArray(int[] inputArray) {
+    public static void processFile(Scanner input) {
     	
-    	// get the difference between MAX_DIGITS and inputArray.
-    	int numZero = MAX_DIGITS - inputArray.length;
-    	
-    	// inititalize our return array.
-    	int[] newArray = new int[MAX_DIGITS];
-    	
-    	// Fill in the array from the right, starting with the last number.
-    	for(int i = inputArray.length - 1; i >= 0; i--) {
-    		newArray[i + numZero] = inputArray[i];
+    	int[] result = new int[MAX_DIGITS];
+    	String currentLine = input.next();
+		int[] currentArray = convertArray(stringToArray(currentLine));
+		result = addInt(result, currentArray);
+		if(!input.hasNext()) {
+			System.out.println(Arrays.toString(result));
+		}
+
+    	while(input.hasNext()) {
+    		
+    		String currentLine1 = input.next();
+    		int[] currentArray1 = convertArray(stringToArray(currentLine1));
+    		result = addInt(result, currentArray1);
+    		System.out.println(Arrays.toString(result));
+    		
+    		if(input.hasNext()) {
+    			currentLine1 =  input.next();
+    			currentArray1 = convertArray(stringToArray(currentLine1));
+    			result = addInt(result, currentArray1);
+    			System.out.println(Arrays.toString(result));
+    		}
+    		System.out.println(Arrays.toString(result));
     	}
-    	
-    	// Give me my array!
-    	return newArray;
     }
     
+
     
     /*
      * This method adds two "big ints" together.  It uses convertArray
@@ -122,26 +123,50 @@ public class SumBigInts {
     	return result;  
     }
     
+    /*
+     * This helper method will take in the strings of numbers and
+     * convert them into a simple integer array of varying lengths.
+     */
     public static int[] stringToArray(String s) {
-    	String[] numberString = s.split(" ");
     	
-    	int[] result = new int[numberString.length];
-    	for(int i = 0; i < numberString.length; i++) {
-    		String tempNumber = numberString[i];
-    		result[i] = Integer.parseInt(tempNumber);
+    	//initialize the return array.
+    	int[] result = new int[s.length()];
+    	
+    	// Loop through the string and convert it.
+    	for(int i = 0; i < result.length; i++) {
+    		result[i] = Character.getNumericValue(s.charAt(i));
     	}
     	
+    	// Give me my array!
     	return result;
     	
     }
     
-    public static void processFile(Scanner input) {
+    /*
+     * This method is the helper method that will convert
+     * every Integer array its given into an array that
+     * contains the same values but all the way on the right 
+     * side of it.  
+     * 
+     * It also places zero's in every space not occupied by 
+     * an Integer.
+     */
+    public static int[] convertArray(int[] inputArray) {
     	
-    	while(input.hasNextLine()) {
-    		
+    	// get the difference between MAX_DIGITS and inputArray.
+    	int numZero = MAX_DIGITS - inputArray.length;
+    	
+    	// initialize our return array.
+    	int[] newArray = new int[MAX_DIGITS];
+    	
+    	// Fill in the array from the right, starting with the last number.
+    	for(int i = inputArray.length - 1; i >= 0; i--) {
+    		newArray[i + numZero] = inputArray[i];
     	}
-    	String line = input.nextLine();
     	
+    	// Give me my array!
+    	return newArray;
     }
+    
 
 }
