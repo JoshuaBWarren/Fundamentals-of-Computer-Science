@@ -52,10 +52,13 @@ public class SumBigInts {
     
     public static void processFile(Scanner input) {
     	
+    	
+    	/*
     	int[] result = new int[MAX_DIGITS];
     	String currentLine = input.next();
 		int[] currentArray = convertArray(stringToArray(currentLine));
 		result = addInt(result, currentArray);
+		
 		if(!input.hasNext()) {
 			System.out.println(Arrays.toString(result));
 		}
@@ -66,15 +69,15 @@ public class SumBigInts {
     		int[] currentArray1 = convertArray(stringToArray(currentLine1));
     		result = addInt(result, currentArray1);
     		System.out.println(Arrays.toString(result));
-    		
-    		if(input.hasNext()) {
-    			currentLine1 =  input.next();
-    			currentArray1 = convertArray(stringToArray(currentLine1));
-    			result = addInt(result, currentArray1);
-    			System.out.println(Arrays.toString(result));
-    		}
-    		System.out.println(Arrays.toString(result));
-    	}
+    		*/
+    		//if(input.hasNext()) {
+    			//currentLine1 =  input.next();
+    			//currentArray1 = convertArray(stringToArray(currentLine1));
+    			//result = addInt(result, currentArray1);
+    			//System.out.println(Arrays.toString(result));
+    		//}
+    		//System.out.println(Arrays.toString(result));
+    	//}
     }
     
 
