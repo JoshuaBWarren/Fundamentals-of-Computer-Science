@@ -7,7 +7,7 @@ import java.io.*;
 import java.util.*;
 
 public class SumBigInts {
-    public static final int MAX_DIGITS = 25;
+    public static final int MAX_DIGITS = 26;
 
     
     /*
@@ -24,7 +24,7 @@ public class SumBigInts {
 
     public static void main(String[] args) throws FileNotFoundException {
     	
-        Scanner input = new Scanner(new File("src/Untitled 1"));
+        Scanner input = new Scanner(new File("src/sum.txt"));
         processFile(input);
         
         int[] array1 = {1, 2, 3, 4, 3, 2, 1, 4, 5};
@@ -35,7 +35,9 @@ public class SumBigInts {
         
            
 
-        //System.out.println(Arrays.toString(addInt(array3, array4)));
+       // System.out.println(Arrays.toString(addInt(array3, array4)));
+       // int[] test1 = addInt(array3, array4);
+       // System.out.println(arrayToString(test1));
 
 
         //System.out.println(Arrays.toString(addInt(array1, array2)));
@@ -50,34 +52,33 @@ public class SumBigInts {
 
 // more methods follow for i/o and add and .....
     
+    
     public static void processFile(Scanner input) {
     	
+    	int count = 0;
     	
-    	/*
     	int[] result = new int[MAX_DIGITS];
-    	String currentLine = input.next();
-		int[] currentArray = convertArray(stringToArray(currentLine));
-		result = addInt(result, currentArray);
-		
-		if(!input.hasNext()) {
-			System.out.println(Arrays.toString(result));
-		}
-
-    	while(input.hasNext()) {
+    	while(input.hasNextLine()) {
     		
-    		String currentLine1 = input.next();
-    		int[] currentArray1 = convertArray(stringToArray(currentLine1));
-    		result = addInt(result, currentArray1);
-    		System.out.println(Arrays.toString(result));
-    		*/
-    		//if(input.hasNext()) {
-    			//currentLine1 =  input.next();
-    			//currentArray1 = convertArray(stringToArray(currentLine1));
-    			//result = addInt(result, currentArray1);
-    			//System.out.println(Arrays.toString(result));
-    		//}
+    		String line = input.nextLine();
+    		Scanner linesc = new Scanner(line);
+    		
+    		while(linesc.hasNext()) {
+    			String currentLine = linesc.next();
+    			System.out.print(currentLine);
+    			System.out.print(" + ");
+    			int[] currentArray = convertArray(stringToArray(currentLine));
+    			result = addInt(result, currentArray);
+    		}
+    		
+    		String answer = arrayToString(result);
+    		System.out.println(" = " + answer);
     		//System.out.println(Arrays.toString(result));
-    	//}
+    		count++;
+    		result = new int[MAX_DIGITS];
+    		
+    	}
+    	System.out.println("Total lines = " + count);
     }
     
 
@@ -132,7 +133,7 @@ public class SumBigInts {
      */
     public static int[] stringToArray(String s) {
     	
-    	//initialize the return array.
+    	// initialize the return array.
     	int[] result = new int[s.length()];
     	
     	// Loop through the string and convert it.
@@ -142,7 +143,47 @@ public class SumBigInts {
     	
     	// Give me my array!
     	return result;
+    }
+    
+    /*
+     * This helper method is going to trim off the proceeding
+     * zero's in the number of the array and gives back
+     * a string.
+     */
+    public static String arrayToString(int[] array) {
     	
+    	// set the string value.
+    	String line = "";
+    	
+    	// set the counter value.
+    	int counter = 0;
+    	
+    	// loop through the array to find the zero's.
+    	for(int i : array) {
+    		if(i != 0) {
+    			break;
+    		}
+    		counter++;
+    	}
+    	
+    	/*
+    	 * create the new array where the old length is 
+    	 * replaced with the new length, without the zeros.
+    	 */
+    	int[] newArray = new int[array.length - counter];
+    	
+    	// fill in the new array with the length we need.
+    	for(int i = 0; i < newArray.length; i++) {
+    		newArray[i] = array[i + counter];
+    	}
+    	
+    	// create the string using the values of the old array.
+    	for(int i = 0; i < newArray.length; i++) {
+    		line = line + newArray[i];
+    	}
+    	
+    	// return the number from the array as a line.
+    	return line;
     }
     
     /*
