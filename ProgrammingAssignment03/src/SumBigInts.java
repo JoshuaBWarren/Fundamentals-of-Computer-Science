@@ -1,14 +1,15 @@
-// This program reads an input file that contains sequences of integers to
-// be added together.  The program reads them as Strings so that it can
-// process large integers.  Reset the constant DIGITS to allow it to handle
-// larger integers.
+/*
+ * Project Assignment Three.
+ * Joshua Warren
+ * 3/1/2018
+ * CS 210
+ */
 
 import java.io.*;
 import java.util.*;
 
 public class SumBigInts {
     public static final int MAX_DIGITS = 26;
-
     
     /*
      * For this assignment:
@@ -26,69 +27,102 @@ public class SumBigInts {
     	
         Scanner input = new Scanner(new File("src/sum.txt"));
         processFile(input);
-        
-        int[] array1 = {1, 2, 3, 4, 3, 2, 1, 4, 5};
-        int[] array2 = {9, 9, 6, 5, 4, 3, 2, 1};
-        
-        int[] array3 = {9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9};
-        int[] array4 = {4, 3, 2, 4, 3, 2};
-        
-           
-
-       // System.out.println(Arrays.toString(addInt(array3, array4)));
-       // int[] test1 = addInt(array3, array4);
-       // System.out.println(arrayToString(test1));
-
-
-        //System.out.println(Arrays.toString(addInt(array1, array2)));
-
-        
-        //System.out.print(Arrays.toString(convertArray(array1)));
-        //System.out.println(Arrays.toString(convertArray(stringToArray("12345"))));
-        //System.out.println(Arrays.toString(stringToArray("123456")));
-        
-
     } 
 
 // more methods follow for i/o and add and .....
     
-    
+    /*
+     * This is the main method for the assignment.
+     * 
+     * This method will receive a file with lines of string integers.
+     * Then, it will convert each number into a number array.  It will
+     * will then move the numbers to the right of the array and fill in
+     * the empty spots with zero's.  When it's at the end of the line, it
+     * will sum the entire line and print the total at the end.  
+     * 
+     * After, it will print the total amount of lines that were processed.
+     */
     public static void processFile(Scanner input) {
     	
+    	// set initial values
     	int count = 0;
-    	
+    	String answer = "";
+    	int[] zero = new int[MAX_DIGITS];
     	int[] result = new int[MAX_DIGITS];
+    	
+    	/*
+    	 * grab our scanner input and start the while loop
+    	 */
     	while(input.hasNextLine()) {
     		
+    		// set the first line into a string
     		String line = input.nextLine();
+    		
+    		// create another scanner to read that line
     		Scanner linesc = new Scanner(line);
     		
+    		 // loop through the line
     		while(linesc.hasNext()) {
+    			
+    			// set the first pattern into currentLine
     			String currentLine = linesc.next();
+    			
+    			// print it out
     			System.out.print(currentLine);
-    			System.out.print(" + ");
+    			
+    			//Check if there's a space between numbers
+    			if(!linesc.hasNext()) {
+    				//if not, put equals.
+    				System.out.print(" = ");
+    			} else {
+    				//if so, put a plus.
+    				System.out.print(" + ");
+    			}
+    			
+    			/*
+    			 * currentArray is the result of grabbing currentLine and converting
+    			 * that string into a special array that will fill up the remaining
+    			 * empty slots within our max array with zero's.
+    			 */
     			int[] currentArray = convertArray(stringToArray(currentLine));
-    			result = addInt(result, currentArray);
-    		}
+    			
+    			// add the two integer arrays.
+    			result = addArrays(result, currentArray);
+    			
+    			// if our result isn't full of zeros and thus has something.
+    			if(result != zero) {
+    				
+    				// convert our special array back into a string.
+    				answer = arrayToString(result);
+    			} else {
+    				
+    				// else, set the answer to "0" as we have nothing.
+    				answer = "0";
+    				}
+    			}
+
+    		// print out the final answer of the summation.
+    		System.out.println(answer);
     		
-    		String answer = arrayToString(result);
-    		System.out.println(" = " + answer);
-    		//System.out.println(Arrays.toString(result));
+    		// add one to the count we're keeping of the total lines.
     		count++;
-    		result = new int[MAX_DIGITS];
     		
+    		// reset result into an array full of zero's.
+    		result = new int[MAX_DIGITS];
     	}
+    	// print space between the math and the total.
+    	System.out.println();
+    	
+    	// print out the total amount of lines.
     	System.out.println("Total lines = " + count);
     }
-    
-
     
     /*
      * This method adds two "big ints" together.  It uses convertArray
      * to convert the two Integer array's it's given and adds the values
      * in each column together.  
      */
-    public static int[] addInt(int[] array1, int[] array2) {
+    public static int[] addArrays(int[] array1, int[] array2) {
     	
     	// set the initial column value and carry over value.
     	int colValue = 0;
@@ -159,7 +193,7 @@ public class SumBigInts {
     	int counter = 0;
     	
     	// loop through the array to find the zero's.
-    	for(int i : array) {
+    	for(int i : array) {  		
     		if(i != 0) {
     			break;
     		}
@@ -181,9 +215,17 @@ public class SumBigInts {
     	for(int i = 0; i < newArray.length; i++) {
     		line = line + newArray[i];
     	}
-    	
-    	// return the number from the array as a line.
-    	return line;
+
+    	// if counter is 26, then we have an empty array.
+    	if(counter == 26) {
+    		
+    		// set line to "0"
+    		return line + "0";
+    	} else {
+    		
+    		// else, return the string.
+    		return line;
+    	}
     }
     
     /*
