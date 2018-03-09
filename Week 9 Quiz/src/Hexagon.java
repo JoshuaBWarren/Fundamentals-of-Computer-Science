@@ -9,63 +9,19 @@ import java.awt.Point;
 
 public class Hexagon {
 	
-	private int x;
-	private int y;
+
 	private Point center;
 	private double side;
 	
 	// Represents a 2-dimensional Hexagon.
-	public Hexagon(int x, int y, Point center, double side) {
+	public Hexagon(Point center, double side) {
 		if(side < 0) {
 			throw new IllegalArgumentException();
 		}
 		
-		this.x = x;
-		this.y = y;
 		this.center = center;
 		this.side = side;
 	}
-	
-	// Represents a 2-dimensional Hexagon whose top-left corner
-	// is specified by a given Point center with a length side. 
-	public Hexagon(Point center, double side) {
-		this.center = new Point(0, 0);
-		this.side = 0;
-	}
-	
-	
-	/*
-	 * Getter method for field x.
-	 * Get's the current value for x.
-	 */
-	public int getX() {
-		return x;
-	}
-
-	/*
-	 * Setter method for field x.
-	 * Set's a value for the x.
-	 */
-	public void setX(int x) {
-		this.x = x;
-	}
-
-	/*
-	 * Getter method for field y.
-	 * Get's the current value for y.
-	 */
-	public int getY() {
-		return y;
-	}
-
-	/*
-	 * Setter method for field y.
-	 * Set's a value for the y.
-	 */
-	public void setY(int y) {
-		this.y = y;
-	}
-
 
 	/*
 	 * Getter method for field center.

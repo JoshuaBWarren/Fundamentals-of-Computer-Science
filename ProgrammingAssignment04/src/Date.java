@@ -11,6 +11,20 @@ public class Date {
 	 * Constructs a date with an int year, int month
 	 * and an int day.
 	 */
+	
+	public Date(int year, int month, int day) {
+		if (day <= 0 || day > 31) {
+			String s = "Day cannot be less than or equal to 0 or greater than 31.";
+            throw new IllegalArgumentException(s);
+        } else if(month <= 0 || month > 12) {
+        	String s = "Month cannot be less than or equal to 0 or greater than 12.";
+        	throw new IllegalArgumentException(s);
+        }
+		this.year = year;
+		this.month = month;
+		this.day = day;
+	}
+	/*
 	public Date(int year, int month, int day) {
 		if (day <= 0 || day > 31) {
 			String s = "Day cannot be less than or equal to 0 or greater than 31.";
@@ -23,6 +37,7 @@ public class Date {
 		this.month = 1;
 		this.day = 1;
 	}
+	*/
 
 	/*
 	 * Getter method for field year.
@@ -84,7 +99,7 @@ public class Date {
 		
 		
 		
-		System.out.println(daysInMonth);
+
 		
 	}
 	
@@ -111,6 +126,14 @@ public class Date {
 	public boolean isLeapYear() {
 		return ((year %4 == 0) && (year % 100 !=0) || (year % 400 == 0));
 	}
+	
+	/*
+	 * Returns the long date string format of the given Date.
+	 */
+	public String longDate() {
+		return "" + stringInMonth(month) + " " + day + ", " + year;
+	}
+
 	
 	/*
 	 * Returns a String representation of this date in 
@@ -149,6 +172,26 @@ public class Date {
 		}else {
 			return 28;
 		}
+	}
+	
+	/*
+	 * Helper method that takes the int month and converts 
+	 * 
+	 * Example: 1 = "January" and 10 = "October".
+	 */
+	public String stringInMonth(int month) {
+		
+		String months[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "Octoboer", "November", "December"};
+		String monthToPrint = "";
+		
+		for(int i = 1; i <= months.length; i++) {
+			if (month == i + 1) {
+				
+				monthToPrint = months[i];
+			}
+		}
+		
+		return monthToPrint;
 	}
 	
 	
