@@ -8,65 +8,46 @@ import java.awt.Point;
  */
 
 public class Hexagon {
-	
+	 // FIELDS
+	 private Point center; // required to be center of the hexagon
+	 private double side; // the length of one side (all six are same)
 
-	private Point center;
-	private double side;
-	
-	// Represents a 2-dimensional Hexagon.
-	public Hexagon(Point center, double side) {
-		if(side < 0) {
-			throw new IllegalArgumentException();
-		}
-		
-		this.center = center;
-		this.side = side;
-	}
+	// CONSTRUCTORS
+	 public Hexagon() {
+	   this(new Point(0,0),0);
+	 }
 
-	/*
-	 * Getter method for field center.
-	 * Get's the current value for center.
-	 */
-	public Point getCenter() {
-		return center;
-	}
+	 public Hexagon(Point c, double s) {
+	   center = c;
+	   side = s;
+	 }
 
-	/*
-	 * Setter method for field center.
-	 * Set's a value for the center.
-	 */
-	public void setCenter(Point center) {
-		this.center = center;
-	}
+	// ACCESSORS (getters)
+	 public Point getCenter() {
+	   return center;
+	 }
+	 
+	 public double getSide() {
+	   return side;
+	 }
 
-	/*
-	 * Getter method for field side.
-	 * Get's the current value for side.
-	 */
-	public double getSide() {
-		return side;
-	}
+	// MODIFIERS (mutators)
+	 public void setCenter(Point c) {
+	   center = c;
+	 }
 
-	/*
-	 * Setter method for field side.
-	 * Set's a value for side.
-	 */
-	public void setSide(double side) {
-		this.side = side;
-	}
-	
-	/*
-	 * Computes the area of a Hexagon.
-	 */
-	public double area() {
-		return 3 * Math.sqrt(3) / 2 * Math.pow(side, 2);
-	}
-	
-	/*
-	 * Computes the perimeter of a Hexagon.
-	 */
-	public double perimeter() {
-		return 6 * side;
-	}
+	 public void setSide(double r) {
+	   side = r;
+	 }
 
-}
+	 
+
+	 public double area() { // returns area (Google has formula)
+	   return 1.5*Math.sqrt(3)*Math.pow(side, 2) * 100. / 100;
+	 }
+
+	 public double perimeter() {
+	 // return perimeter (very simple math)
+	   return 6.*side;
+	 }
+	}
