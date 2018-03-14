@@ -1,5 +1,8 @@
 /*
  * Programming Assignment 4
+ * Joshua Warren
+ * CS-210
+ * 3/13/2018
  */
 public class Date {
 	
@@ -26,30 +29,21 @@ public class Date {
 	 */
 	
 	public Date(int year, int month, int day) {
-		if (day <= 0 || day > 31) {
-			String s = "Day cannot be less than or equal to 0 or greater than 31.";
-            throw new IllegalArgumentException(s);
-        } else if(month <= 0 || month > 12) {
-        	String s = "Month cannot be less than or equal to 0 or greater than 12.";
-        	throw new IllegalArgumentException(s);
-        }
 		this.year = year;
 		this.month = month;
 		this.day = day;
+		verifyDate();
 	}
 
+	/*
+	 * Accessor methods.s
+	 */
+	
 	/*
 	 * Getter method for field year.
 	 */
 	public int getYear() {
 		return year;
-	}
-
-	/*
-	 * Setter method for field year.
-	 */
-	public void setYear(int year) {
-		this.year = year;
 	}
 
 	/*
@@ -60,13 +54,6 @@ public class Date {
 	}
 
 	/*
-	 * Setter method for field month.
-	 */
-	public void setMonth(int month) {
-		this.month = month;
-	}
-
-	/*
 	 * Getter method for field day.
 	 */
 	public int getDay() {
@@ -74,10 +61,31 @@ public class Date {
 	}
 
 	/*
+	 * Mutator methods.
+	 */
+	
+	/*
+	 * Setter method for field year.
+	 */
+	public void setYear(int year) {
+		this.year = year;
+		verifyDate();
+	}
+	
+	/*
+	 * Setter method for field month.
+	 */
+	public void setMonth(int month) {
+		this.month = month;
+		verifyDate();
+	}
+	
+	/*
 	 * Setter method for field day.
 	 */
 	public void setDay(int day) {
 		this.day = day;
+		verifyDate();
 	}
 	
 	/*
@@ -125,7 +133,6 @@ public class Date {
 				daysPlusMonths[i]++;
 			}
 		}
-		
 		
 		/*
 		 * Convert our daysTotal into the date format given by 
@@ -180,11 +187,15 @@ public class Date {
 	}
 	
 	/*
-	 * Returns the number of days that this Date must be ****************************
+	 * Returns the number of days that this Date must be 
 	 * adjusted to make it equal to the given other Date.
 	 */
 	public int daysTo(Date other) {
 		
+		/*
+		 * An array of all the days added, in succession, with the next one
+		 * after it.
+		 */
 		int[] daysPlusMonths = {0, 31, 59, 90, 120, 151, 181,
 				212, 243, 273, 304, 334};
 		/*
@@ -198,6 +209,7 @@ public class Date {
 		/*
 		 * Counters to keep track:
 		 */
+		int daysTotal = 0;
 		int current = 0;
 		int leapCounter = 0;
 		
@@ -208,33 +220,62 @@ public class Date {
 		 * 
 		 * Then, add up all the days.
 		 */
-		if(other.getYear() > this.year) {
-			for(int i = this.year; i <= other.getYear(); i++) {
-				Date temp = new Date(i, 1, 1);
-				if(temp.isLeapYear()) {
+		if(other.getYear() > this.getYear()) {
+			
+			/*
+			 * Create new Dates and test if they're leap years. 
+			 * 
+			 * Add one to leapCounter if it's a leap year. 
+			 */
+			for(int i = this.getYear(); i <= other.getYear(); i++) {
+				Date tempDate = new Date(i, 1, 1);
+				if(tempDate.isLeapYear()) {
 					leapCounter = leapCounter + 1;
 				}
 			}
-			current = (daysPlusMonths[this.month - 1] + this.day) -
+			//System.out.println(current);
+			current = (daysPlusMonths[this.getMonth() - 1] + this.getDay()) -
 					(daysPlusMonths[other.getMonth() - 1] + other.getDay());
+			//System.out.println(current);
 		} else {
-			for (int i = other.getYear(); i <= this.year; i++) {
-				Date temp = new Date(i, 1, 1);
-				if (temp.isLeapYear()) {
+			
+			/*
+			 * If the given year is not bigger than the year we have, then
+			 * create new Dates
+			 */
+			for (int i = other.getYear(); i <= this.getYear(); i++) {
+				Date tempDate = new Date(i, 1, 1);
+				if (tempDate.isLeapYear()) {
 					leapCounter = leapCounter + 1;
 				}
 			}
 			current = (daysPlusMonths[other.getMonth() - 1] + other.getDay()) - 
-					(daysPlusMonths[this.month - 1] + this.day);
+					(daysPlusMonths[this.getMonth() - 1] + this.getDay());
+			//System.out.println(current);
 		}
-		
-		int daysTotal = 365 * (other.getYear() - this.year) + leapCounter;
-		
-		return daysTotal - current + 1;
+
+		/*
+		 * If the year we're given is bigger, then add up the daysTotal
+		 * value, and subtract daysTotal from the current.
+		 */
+		if(other.getYear() > this.getYear()) {
+			
+			daysTotal = 365 * (other.getYear() - this.getYear()) + leapCounter;
+
+			
+			return daysTotal - current - 1;
+			
+			/*
+			 * If the year we're given isn't bigger, then add up the daysTotal
+			 * value, and subtract current from daysTotal.
+			 */
+		} else {
+
+			daysTotal = 365 * (this.getYear() - other.getYear()) + leapCounter;	
+			return current - daysTotal + 1;
+		}
 	}
-	
-	
-	
+
 	/*
 	 * Static version of daysTo.
 	 * 
@@ -266,24 +307,9 @@ public class Date {
 	 * Returns the long date string format of the given Date.
 	 */
 	public String longDate() {
-		return "" + stringInMonth(month) + " " + day + ", " + year;
+		return stringInMonth(month) + " " + day + ", " + year;
 	}
 	
-	/*
-	 * Helper method that gets the total days in a month.
-	 */
-	public int daysInMonth(int month) {
-		
-		if((month == 1) || (month == 3) || (month == 5) || 
-				(month == 7) || (month == 8) || (month == 10) || (month == 12)) {
-			return 31;
-		} else if((month == 4) || (month == 6) || (month == 9) || (month == 11)) {
-			return 30;
-		} else {
-			return 28;
-		}
-		
-	}
 	
 	/*
 	 * Helper method that takes the int month and converts 
@@ -295,11 +321,34 @@ public class Date {
 		String months[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "Octoboer", "November", "December"};
 		String monthToPrint = "";
 		
+		/*
+		 * Go through the months and check to see which index of the month
+		 * matches the one we're given.
+		 */
 		for(int i = 1; i <= months.length; i++) {
-			if (month == i + 1) {	
-				monthToPrint = months[i];
+			if (month == i) {	
+				monthToPrint = months[i - 1];
 			}
 		}
 		return monthToPrint;
 	}
+	
+	/*
+	 * Helper method that will check the date to ensure it's in the right
+	 * format.
+	 */
+	public void verifyDate() {
+		if(year <= 999 || year >= 10000) {
+			throw new IllegalArgumentException("Year can't be three or five digits");
+		}
+		
+		if(month <= 0 || month >= 13) {
+			throw new IllegalArgumentException("Month has to be between 1 \"January \" and 12 \"December \"");
+		}
+		
+		if(day <= 0 || day >= 32) {
+			throw new IllegalArgumentException("Day has to be between 1 and 31");
+		}
+	}
+	
 }
