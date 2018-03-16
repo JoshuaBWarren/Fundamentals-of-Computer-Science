@@ -7,8 +7,14 @@ public class Client {
 		Date one = new Date(1582,10,15);	// start of Gregorian
 		Date two = new Date(2016,1,28); // 2016 was a leap year
 		
-		one.addDays(1);		// advance one day (negative subtracts days)
-		one.addWeeks(10);	// advance one week (negative allowed, yes)
+		Date threee = new Date(2018, 3, 16);
+		
+		threee.addDays(-75);  // should be 2017/12/31
+		
+		System.out.println(threee);
+		
+		//one.addDays(1);		// advance one day (negative subtracts days)
+		//one.addWeeks(10);	// advance one week (negative allowed, yes)
 		System.out.println(two.daysTo(one)); // -158184 days (negative)
 		System.out.println(one.getDay());	// day is now the 25th
 		System.out.println(one.getMonth());	// returns 12, January is 1

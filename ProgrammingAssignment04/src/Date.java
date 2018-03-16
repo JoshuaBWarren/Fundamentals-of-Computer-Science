@@ -135,10 +135,12 @@ public class Date {
 		}
 		
 		/*
-		 * Convert our daysTotal into the date format given by 
-		 * the constructor.
+		 * Compute how many days we'd have to subtract to get
+		 * to the very beginning of the year.
 		 */
 		int gap = (daysTotal - daysPlusMonths[0]);
+		System.out.println("--- gap --- " + gap);
+		System.out.println("--- daysTotal --- " + daysTotal);
 		
 		/*
 		 * reset month to 1
@@ -150,9 +152,13 @@ public class Date {
 		 */
 		for(int i = 1; i < daysPlusMonths.length; i++) {
 			int temp = Math.abs(daysTotal - daysPlusMonths[i]);
+			System.out.println("--- temp --- " + temp);
 			if(temp < gap) {
 				gap = temp;
 				this.month = i;
+				System.out.println("--- month --- " + month);
+			} else {
+				
 			}
 		}
 		
@@ -169,7 +175,7 @@ public class Date {
 		if(this.day > currentDay) {
 			this.month++;
 			this.day = this.day - currentDay;
-		}
+		} 
 
 	}
 	
@@ -338,6 +344,9 @@ public class Date {
 	 * format.
 	 */
 	public void verifyDate() {
+		/*
+		 * Year is only between 1000 and 9999.
+		 */
 		if(year <= 999 || year >= 10000) {
 			throw new IllegalArgumentException("Year can't be three or five digits");
 		}
