@@ -96,4 +96,9 @@ public class Rectangle {
         
         return new Rectangle(left, top, right - left, bottom - top);
     }
+    
+    public boolean touches(Rectangle r) {
+    	return this.x < r.x + r.width && this.x + this.width > r.x 
+    			&& this.y < r.y + r.height && this.y + this.height > r.y;
+    }
 }
